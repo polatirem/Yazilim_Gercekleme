@@ -1,0 +1,72 @@
+.surveying {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding: var(--space-9) var(--gutter);
+  color: var(--color-text-secondary);
+}
+
+.route {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+  stroke-dasharray: 1;
+  animation: sq-draw 900ms var(--ease-draw) both;
+}
+
+.error {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--measure);
+  padding: var(--space-6);
+  border: 1px solid var(--color-danger);
+  border-left-width: 4px;
+  background: var(--color-surface);
+}
+
+.error :global(.t-label) {
+  color: var(--color-danger);
+}
+
+.errorBody {
+  color: var(--color-text-secondary);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.errorBody code,
+.errorBody pre {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.notice {
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--color-text-primary);
+  background: var(--color-surface);
+  font-size: var(--text-body-sm);
+}
+
+.notice[data-tone="warning"] {
+  border-left-color: var(--color-warning);
+}
+
+.empty {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-7) 0;
+  max-width: var(--measure);
+}
+
+.emptyBody {
+  color: var(--color-text-secondary);
+}

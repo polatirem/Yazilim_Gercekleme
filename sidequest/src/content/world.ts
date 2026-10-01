@@ -1,0 +1,136 @@
+/**
+ * Şehir (The City). Coordinates live in a 1200 × 800 plan. Locations are conceptual
+ * spaces — modes of interaction, not one-to-one skill categories.
+ */
+import type { WorldLocation, WorldPath } from "@/domain/content-types";
+
+export const MAP_SIZE = { width: 1200, height: 800 } as const;
+export const HUB_ID = "crossroads";
+
+export const LOCATIONS: WorldLocation[] = [
+  {
+    id: "crossroads",
+    name: "Kavşak",
+    footprint: "crossroads",
+    hue: "vermilion",
+    x: 600,
+    y: 420,
+    modes: ["belirsizlik", "seçimler", "yarışan seçenekler", "dönüm noktaları"],
+    description: "Bütün yolların buluştuğu yer. İnsanlar burada niyet ettiklerinden uzun bekler.",
+    undiscoveredHint: "",
+    reveal: "start",
+  },
+  {
+    id: "archive",
+    name: "Arşiv",
+    footprint: "archive",
+    hue: "indigo",
+    x: 300,
+    y: 225,
+    modes: ["yerlerin kopyaları", "söylenenler", "zamanla kayanlar", "yeniden kurmak"],
+    description: "Kat planları ve yarım hatırlanan konuşmalarla dolu raflar. Hepsi biraz eskimiş.",
+    undiscoveredHint: "Kuzeybatıda sıra sıra bir şeyler. Kâğıt olabilir.",
+    reveal: "quest",
+    arrivalPath: "p-archive",
+  },
+  {
+    id: "observatory",
+    name: "Gözlemevi",
+    footprint: "observatory",
+    hue: "teal",
+    x: 905,
+    y: 215,
+    modes: ["fark etmek", "örüntüler", "ayrıntılar", "bakış açısı"],
+    description: "Tepede bir kubbe. Yukarı bakmak için yapıldı; ziyaretçilerin çoğu aşağı bakar.",
+    undiscoveredHint: "Kuzeydoğudaki yükseltide yuvarlak bir şekil.",
+    reveal: "quest",
+    arrivalPath: "p-observatory",
+  },
+  {
+    id: "workshop",
+    name: "Atölye",
+    footprint: "workshop",
+    hue: "amber",
+    x: 190,
+    y: 470,
+    modes: ["eller", "alışkanlıklar", "yeniden düzenlemek", "yapmak"],
+    description: "Tezgâhlar, aletler ve nasıl kurulduklarını görmek için sökülmüş alışkanlıklar.",
+    undiscoveredHint: "Batıda testere dişli bir çatı hattı.",
+    reveal: "quest",
+    arrivalPath: "p-workshop",
+  },
+  {
+    id: "station",
+    name: "İstasyon",
+    footprint: "station",
+    hue: "saffron",
+    x: 985,
+    y: 555,
+    modes: ["zaman", "sıralama", "planlama", "hareket"],
+    description: "Her kalkış bir tahmindir. Tabelalar nadiren haklı çıkar.",
+    undiscoveredHint: "Doğuda uzun, paralel çizgiler. Üzerlerinde bir şey hareket ediyor.",
+    reveal: "quest",
+    arrivalPath: "p-station",
+  },
+  {
+    id: "market",
+    name: "Çarşı",
+    footprint: "market",
+    hue: "magenta",
+    x: 740,
+    y: 670,
+    modes: ["öncelik", "ödünleşim", "değer", "fazla seçenek"],
+    description: "Kemerli tezgâhlar. Her şeyin bir değeri var; hiçbiri tek çantaya sığmıyor.",
+    undiscoveredHint: "Güneyde sütun dizileri. Muhtemelen gürültülü.",
+    reveal: "quest",
+    arrivalPath: "p-market",
+  },
+  {
+    id: "garden",
+    name: "Bahçe",
+    footprint: "garden",
+    hue: "green",
+    x: 385,
+    y: 655,
+    modes: ["yavaş düşünmek", "iç gözlem", "izlemek", "ölçülmeyen zaman"],
+    description: "Bilerek kıvrılan yollar. Kimse ölçmediğinde zaman başka türlü akar.",
+    undiscoveredHint: "Güneybatıda yeşil ve düzensiz bir şey.",
+    reveal: "quest",
+    arrivalPath: "p-garden",
+  },
+  {
+    id: "unknown",
+    name: "Bilinmeyen",
+    footprint: "unknown",
+    hue: "violet",
+    x: 610,
+    y: 95,
+    modes: ["gizem", "alışılmadık görevler", "beklenmedik kısıtlar"],
+    description: "Nehrin ötesinde ölçüm durur. Orada ne olduğu ancak gidilerek bilinir.",
+    undiscoveredHint: "Nehrin ötesinde harita boş. Ne olduğunu bilmeden bir görevi kabul etmek bunu değiştirebilir.",
+    reveal: "mystery",
+    arrivalPath: "p-unknown",
+  },
+];
+
+/** Street-like routes. Hub routes open with their location; the rest open through quests and campaigns. */
+export const PATHS: WorldPath[] = [
+  { id: "p-archive", from: "crossroads", to: "archive", d: "M600 420 L600 330 L430 330 L300 225" },
+  { id: "p-observatory", from: "crossroads", to: "observatory", d: "M600 420 L760 420 L760 290 L905 215" },
+  { id: "p-workshop", from: "crossroads", to: "workshop", d: "M600 420 L470 420 L380 470 L190 470" },
+  { id: "p-station", from: "crossroads", to: "station", d: "M600 420 L640 500 L860 500 L985 555" },
+  { id: "p-market", from: "crossroads", to: "market", d: "M600 420 L600 560 L740 670" },
+  { id: "p-garden", from: "crossroads", to: "garden", d: "M600 420 L520 520 L520 610 L385 655" },
+  { id: "p-unknown", from: "crossroads", to: "unknown", d: "M600 420 L600 250 L560 190 L610 95" },
+  { id: "p-archive-workshop", from: "archive", to: "workshop", d: "M300 225 L240 330 L190 470" },
+  { id: "p-workshop-garden", from: "workshop", to: "garden", d: "M190 470 L260 600 L385 655" },
+  { id: "p-archive-observatory", from: "archive", to: "observatory", d: "M300 225 L470 170 L760 160 L905 215" },
+  { id: "p-observatory-station", from: "observatory", to: "station", d: "M905 215 L1030 340 L985 555" },
+  { id: "p-station-market", from: "station", to: "market", d: "M985 555 L880 640 L740 670" },
+  { id: "p-garden-market", from: "garden", to: "market", d: "M385 655 L560 705 L740 670" },
+  { id: "p-archive-unknown", from: "archive", to: "unknown", d: "M300 225 L420 110 L610 95" },
+  { id: "p-workshop-market", from: "workshop", to: "market", d: "M190 470 L230 580 L560 600 L740 670" },
+];
+
+/** The river the city was built along. Purely cartographic. */
+export const RIVER_D = "M-20 250 C 160 245, 250 150, 430 150 S 700 200, 820 140 S 1060 55, 1220 70";

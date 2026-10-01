@@ -1,0 +1,421 @@
+.page {
+  min-height: 100dvh;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 60px;
+  padding: 0 var(--gutter);
+  background: var(--color-background);
+  border-bottom: var(--hairline);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-size: var(--text-body-sm);
+  text-decoration: none;
+  color: var(--color-text-secondary);
+}
+
+.back:hover {
+  color: var(--color-text-primary);
+}
+
+.code {
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.phases {
+  justify-self: end;
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--color-border-strong);
+}
+
+.phases li {
+  padding: 4px 10px;
+  font-size: 0.6875rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.phases li + li {
+  border-left: 1px solid var(--color-border-strong);
+}
+
+.phases li[data-current="true"] {
+  background: var(--hue-deep);
+  color: var(--color-text-inverse);
+}
+
+.confirm {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.body {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--space-7) var(--gutter) var(--space-9);
+}
+
+@media (max-width: 44em) {
+  .header {
+    grid-template-columns: auto 1fr auto;
+    row-gap: 0;
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+  }
+  .code {
+    display: none;
+  }
+  .phases li {
+    padding: 3px 7px;
+    font-size: 0.625rem;
+  }
+  .body {
+    padding-top: var(--space-5);
+  }
+}
+
+.empty {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: var(--space-8) var(--gutter);
+}
+
+.section {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.title {
+  max-width: 12ch;
+}
+
+.accentLabel {
+  color: var(--hue-deep);
+}
+
+.phaseLabel {
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+  color: var(--color-text-secondary);
+  padding-bottom: var(--space-3);
+  border-bottom: 3px solid var(--hue);
+}
+
+.voice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.voice blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-body-lg);
+}
+
+.callback {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.callback::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: var(--space-2);
+  background: var(--hue);
+  vertical-align: middle;
+}
+
+.plan {
+  display: grid;
+  border-top: 1px solid var(--color-border-strong);
+  max-width: 36rem;
+}
+
+.plan li {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: var(--hairline);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.mission {
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.details {
+  display: grid;
+  gap: var(--space-2);
+  max-width: var(--measure);
+  font-size: var(--text-body-lg);
+  color: var(--color-text-secondary);
+}
+
+.details li::before,
+.safetyList li::before {
+  content: "— ";
+  color: var(--color-text-muted);
+}
+
+.segments {
+  display: grid;
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.segments li {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) 0;
+  border-bottom: var(--hairline);
+}
+
+.safetyList {
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ---- ACT: the night screen --------------------------------------------------- */
+
+.act {
+  position: relative;
+  overflow: hidden;
+  min-height: 100dvh;
+  background: var(--hue-deep);
+  color: var(--night-text);
+  color-scheme: dark;
+  display: grid;
+  animation: sq-fade var(--dur-slow) var(--ease-out);
+}
+
+/* One large campaign-coloured disc: the "sun" of the act screen. It appears once and stays still. */
+.actOrb {
+  position: absolute;
+  right: -18vmin;
+  top: -18vmin;
+  width: 70vmin;
+  height: 70vmin;
+  border-radius: 50%;
+  background: var(--hue);
+  opacity: 0.28;
+  animation: sq-grow var(--dur-world) var(--ease-out) both;
+}
+
+.actInner {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: var(--space-5);
+  width: 100%;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: var(--space-8) var(--gutter);
+}
+
+.actKicker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--hue-wash);
+}
+
+.actSignal {
+  width: 10px;
+  height: 10px;
+  background: var(--hue);
+}
+
+.actHeadline {
+  color: var(--night-text);
+}
+
+.actInstruction {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: 1.3;
+  color: var(--night-text);
+  max-width: 30ch;
+}
+
+.actReminder {
+  font-family: var(--font-mono);
+  font-size: var(--text-data);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hue-wash);
+}
+
+.actSegment {
+  display: grid;
+  gap: var(--space-2);
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--hue);
+  animation: sq-enter var(--dur-slow) var(--ease-out);
+}
+
+.actSegment :global(.t-label) {
+  color: var(--hue-wash);
+}
+
+.sealed {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--space-4);
+  border: 1px dashed var(--night-text-muted);
+  background: transparent;
+  color: var(--night-text);
+  text-align: left;
+}
+
+.sealed > span {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.sealed:hover {
+  border-style: solid;
+  border-color: var(--hue);
+}
+
+.sealedOpen {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--night-text);
+  color: var(--night-background);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  border-top: 4px solid var(--hue);
+}
+
+.sealedOpen :global(.t-label) {
+  font-family: var(--font-ui);
+  color: var(--hue-deep);
+}
+
+.actError {
+  color: var(--signal-100);
+  font-size: var(--text-body-sm);
+}
+
+.actActions {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  margin-top: var(--space-4);
+}
+
+.actFootnote {
+  font-size: var(--text-caption);
+  color: var(--hue-wash);
+}
+
+.actFooter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgb(255 255 255 / 0.2);
+  font-size: var(--text-caption);
+  color: var(--hue-wash);
+}
+
+.actFooter button {
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: var(--hue-wash);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.actFooter button:hover {
+  color: var(--night-text);
+}
+
+.act :focus-visible {
+  outline-color: var(--hue);
+}
+
+/* ---- Return ------------------------------------------------------------------- */
+
+.returning {
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-4);
+  color: var(--night-text);
+  animation: returnFade 1600ms var(--ease-in-out) both;
+}
+
+@keyframes returnFade {
+  0% {
+    background: var(--night-background);
+    color: var(--night-text);
+  }
+  100% {
+    background: var(--color-background);
+    color: var(--color-text-primary);
+  }
+}
+
+.returnRoute path {
+  fill: none;
+  stroke: var(--hue);
+  stroke-width: 2;
+  stroke-dasharray: 1;
+  animation: sq-draw 1200ms var(--ease-draw) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .returning {
+    animation: none;
+  }
+}

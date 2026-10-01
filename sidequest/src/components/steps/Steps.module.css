@@ -1,0 +1,229 @@
+.step {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 44rem;
+}
+
+.prompt {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  line-height: 1.12;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.hint {
+  color: var(--color-text-muted);
+  margin-top: calc(var(--space-3) * -1);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  padding-top: var(--space-2);
+}
+
+.privacy {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+/* Narrative -------------------------------------------------------------- */
+
+.narrative {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.lines {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.lines p {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: 1.3;
+}
+
+.lines p.speaker {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+/* Measured value (actual step) --------------------------------------------- */
+
+.measured {
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--hue);
+  background: var(--color-surface);
+  max-width: 420px;
+}
+
+/* List inputs ---------------------------------------------------------------- */
+
+.list {
+  display: grid;
+  gap: 0;
+  counter-reset: slot;
+  border-top: 1px solid var(--color-border-strong);
+  max-width: 36rem;
+}
+
+.slot {
+  display: grid;
+  grid-template-columns: 2.5ch 1fr;
+  align-items: center;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.slot span {
+  font-family: var(--font-mono);
+  font-size: var(--text-data);
+  color: var(--color-text-muted);
+}
+
+.slot input {
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  background: transparent;
+  font-size: var(--text-body-lg);
+}
+
+.slot input::placeholder {
+  color: var(--color-locked);
+}
+
+.slot input:focus-visible {
+  outline: none;
+}
+
+.slot:focus-within {
+  box-shadow: inset 3px 0 0 var(--hue);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-s);
+  background: var(--color-surface);
+  font-size: var(--text-body-lg);
+  resize: vertical;
+}
+
+/* Item check ------------------------------------------------------------------ */
+
+.checkRows {
+  display: grid;
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.checkRow {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  border-bottom: var(--hairline);
+}
+
+.checkRow legend {
+  padding: 0;
+  font-size: var(--text-body-lg);
+  margin-bottom: var(--space-2);
+}
+
+.checkRow fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border: 1px solid var(--color-border-strong);
+  width: fit-content;
+  max-width: 100%;
+}
+
+.segmented label {
+  position: relative;
+}
+
+.segmented input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+}
+
+.segmented span {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-body-sm);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.segmented label + label span {
+  border-left: 1px solid var(--color-border-strong);
+}
+
+.segmented input:checked + span {
+  background: var(--hue-deep);
+  color: var(--color-text-inverse);
+}
+
+.segmented input:focus-visible + span {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -4px;
+}
+
+/* Scale ------------------------------------------------------------------------ */
+
+.scaleEnds {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+  max-width: 36rem;
+}
+
+/* Twist -------------------------------------------------------------------------- */
+
+.twist {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-5);
+  background: var(--hue-deep);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-l);
+  border-top: 6px solid var(--hue);
+}
+
+.twistLabel {
+  color: var(--hue);
+}
+
+/* Anchor question -------------------------------------------------------------- */
+
+.anchor {
+  display: grid;
+  gap: var(--space-4);
+}

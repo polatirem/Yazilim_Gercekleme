@@ -1,0 +1,92 @@
+.page {
+  display: grid;
+  gap: var(--space-6);
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--space-7) var(--gutter) var(--space-9);
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 40rem;
+}
+
+.form {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.back {
+  justify-self: start;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+  background: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-data);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+}
+
+.back:hover {
+  color: var(--color-text-primary);
+  border-bottom-color: currentColor;
+}
+
+/* Mystery toggle: a checkbox drawn as a survey square. */
+.mysteryToggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  max-width: 34rem;
+  padding: var(--space-4);
+  border: 1px dashed var(--color-border-strong);
+  cursor: pointer;
+}
+
+.mysteryToggle input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.toggleBox {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  border: 1.5px solid var(--color-border-strong);
+  background: var(--color-surface);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.mysteryToggle input:checked + .toggleBox {
+  background: var(--color-text-primary);
+  box-shadow: inset 0 0 0 4px var(--color-surface);
+}
+
+.mysteryToggle input:focus-visible + .toggleBox {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.mysteryToggle > span:last-child {
+  display: grid;
+  gap: 2px;
+}
+
+.toggleTitle {
+  font-weight: var(--weight-medium);
+}

@@ -1,0 +1,19 @@
+.ticks {
+  display: inline-flex;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.tick {
+  width: 5px;
+  height: 14px;
+  background: var(--hue-wash, var(--color-border));
+  transition:
+    background-color var(--dur-slow) var(--ease-out),
+    height var(--dur-slow) var(--ease-out);
+}
+
+.tick[data-done="true"] {
+  background: var(--hue);
+  height: 18px;
+}

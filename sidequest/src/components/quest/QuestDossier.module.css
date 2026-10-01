@@ -1,0 +1,223 @@
+.dossier {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 46rem;
+}
+
+/* The coloured band: the campaign's colour carries the quest's identity. */
+.band {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-6) var(--space-5);
+  background: var(--hue-wash);
+  color: var(--hue-deep);
+  border-radius: var(--radius-l);
+  border-left: 8px solid var(--hue);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.bandShape {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 28px solid var(--hue);
+  opacity: 0.22;
+  z-index: -1;
+  animation: sq-grow var(--dur-world) var(--ease-out) both;
+}
+
+.bandTop {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  text-transform: uppercase;
+}
+
+.meta span + span::before {
+  content: "/";
+  margin-right: var(--space-4);
+  opacity: 0.4;
+}
+
+.place {
+  color: var(--hue-deep);
+}
+
+.place::after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-left: var(--space-2);
+  background: var(--hue);
+  border-radius: 50%;
+}
+
+.position {
+  padding: 2px 8px;
+  background: var(--hue-deep);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-s);
+}
+
+.title {
+  max-width: 14ch;
+  text-wrap: balance;
+}
+
+.subtitle {
+  opacity: 0.85;
+}
+
+@media (max-width: 40em) {
+  .band {
+    padding: var(--space-5) var(--space-4);
+  }
+}
+
+.description {
+  max-width: var(--measure);
+}
+
+.sigil {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  background: var(--hue);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-m);
+}
+
+.voice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4);
+  margin: 0;
+  padding: var(--space-4) 0;
+  align-items: start;
+}
+
+.line {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-body-lg);
+  line-height: 1.45;
+}
+
+.callback {
+  margin-top: var(--space-1);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.callback::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: var(--space-2);
+  background: var(--hue);
+  vertical-align: middle;
+}
+
+.safety {
+  border-top: var(--hairline);
+  border-bottom: var(--hairline);
+  padding: var(--space-3) 0;
+}
+
+.safety summary {
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  min-height: 24px;
+}
+
+.safety ul {
+  margin-top: var(--space-3);
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.safety li {
+  padding-left: var(--space-4);
+  position: relative;
+}
+
+.safety li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 1px;
+  background: currentColor;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+@media (max-width: 40em) {
+  .actions > button:not(:last-child),
+  .actions > a {
+    flex: 1 1 100%;
+  }
+}
+
+/* ---- Mystery ------------------------------------------------------------ */
+
+.seal {
+  display: grid;
+  gap: var(--space-2);
+  max-width: 28rem;
+}
+
+.seal span {
+  height: 14px;
+  background: var(--hue-deep);
+}
+
+.seal span:nth-child(2) {
+  width: 78%;
+}
+
+.seal span:nth-child(3) {
+  width: 52%;
+  background: var(--hue);
+}
+
+.mysteryReqs {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--color-border-strong);
+  border-left: 1px solid var(--color-border-strong);
+  max-width: 36rem;
+}
+
+.mysteryReqs li {
+  flex: 1 1 120px;
+  padding: var(--space-3) var(--space-4);
+  border-right: 1px solid var(--color-border-strong);
+  border-bottom: 1px solid var(--color-border-strong);
+  text-transform: uppercase;
+  font-size: var(--text-body-sm);
+}

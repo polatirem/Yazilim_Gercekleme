@@ -1,0 +1,245 @@
+.page {
+  display: grid;
+  gap: var(--space-7);
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-7) var(--gutter) var(--space-9);
+}
+
+.head {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.summary {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  line-height: 1.2;
+  max-width: 28ch;
+}
+
+.num {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  padding: 0 0.22em;
+  margin: 0.08em 0;
+  background: var(--hue-wash);
+  color: var(--hue-deep);
+  border-bottom: 4px solid var(--hue);
+  border-radius: var(--radius-m) var(--radius-m) 0 0;
+}
+
+.columns {
+  display: grid;
+  gap: var(--space-7);
+}
+
+@media (min-width: 60em) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+    column-gap: var(--space-8);
+  }
+}
+
+.timelineHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.filter select {
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-s);
+  background: var(--color-surface);
+  font-size: var(--text-body-sm);
+}
+
+.days {
+  display: grid;
+}
+
+.day {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: var(--hairline);
+}
+
+@media (max-width: 40em) {
+  .day {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+}
+
+.date {
+  font-family: var(--font-mono);
+  font-size: var(--text-data);
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  padding-top: 4px;
+}
+
+.entries {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 4px 1fr;
+  gap: var(--space-3);
+}
+
+.tone {
+  background: var(--hue);
+  border-radius: 2px;
+}
+
+
+.entry[data-kind="abandoned"] .tone {
+  opacity: 0.3;
+}
+
+.entryBody {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.entryTitle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+}
+
+.entryTitle a {
+  text-decoration: none;
+}
+
+.entryTitle a:hover {
+  text-decoration: underline;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border: 1px solid var(--color-border-strong);
+}
+
+.found {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-size: var(--text-body-sm);
+}
+
+.found a {
+  color: var(--hue-deep);
+}
+
+.found a::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 6px;
+  background: var(--hue);
+}
+
+.side {
+  display: grid;
+  gap: var(--space-7);
+  align-content: start;
+}
+
+.week,
+.patterns {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.week dl {
+  margin: 0;
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.week dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: var(--hairline);
+}
+
+.week dd {
+  margin: 0;
+}
+
+.explore {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--hue-wash);
+  color: var(--hue-deep);
+  border-left: 5px solid var(--hue);
+  border-radius: 0 var(--radius-m) var(--radius-m) 0;
+}
+
+.patterns > ul {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.patterns > ul li {
+  display: grid;
+  gap: var(--space-1);
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-border-strong);
+}
+
+.pending ul {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.pending li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.meter {
+  display: inline-flex;
+  gap: 2px;
+  flex: none;
+}
+
+.meter span {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--color-border-strong);
+}
+
+.meter span[data-on="true"] {
+  background: var(--color-text-primary);
+}

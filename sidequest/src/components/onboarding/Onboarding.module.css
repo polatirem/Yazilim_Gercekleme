@@ -1,0 +1,113 @@
+.screen {
+  min-height: 100dvh;
+  display: grid;
+  align-content: center;
+  gap: var(--space-6);
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--space-8) var(--gutter);
+}
+
+.night {
+  max-width: none;
+  margin: 0;
+  background: var(--hue-deep);
+  color: var(--night-text);
+  padding-left: max(var(--gutter), calc((100vw - 60rem) / 2));
+  padding-right: max(var(--gutter), calc((100vw - 60rem) / 2));
+}
+
+.statement {
+  max-width: 13ch;
+  text-wrap: balance;
+}
+
+.loop {
+  display: grid;
+  max-width: 34rem;
+  border-top: 1px solid rgb(255 255 255 / 0.25);
+}
+
+.loop li {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid rgb(255 255 255 / 0.25);
+  font-size: var(--text-body-lg);
+}
+
+.loop :global(.t-label) {
+  color: var(--hue);
+  padding-top: 5px;
+}
+
+.small {
+  max-width: 34rem;
+  font-size: var(--text-body-sm);
+  color: var(--hue-wash);
+}
+
+.bigLogo {
+  display: grid;
+  grid-template-columns: repeat(2, 36px);
+  gap: 6px;
+}
+
+.bigLogo span {
+  width: 36px;
+  height: 36px;
+  background: var(--hue);
+  border-radius: 4px;
+  animation: sq-grow var(--dur-slow) var(--ease-out) both;
+  animation-delay: calc(var(--i) * 120ms);
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.progressBar {
+  display: flex;
+  gap: 4px;
+}
+
+.progressBar span {
+  width: 28px;
+  height: 3px;
+  background: var(--color-border);
+  transition: background-color var(--dur-standard) var(--ease-out);
+}
+
+.progressBar span[data-on="true"] {
+  background: var(--hue);
+}
+
+.question {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.skip {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+.first {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.accent {
+  color: var(--hue-deep);
+}

@@ -1,0 +1,272 @@
+/* The City is drawn as a night survey plate: the one dark, cartographic surface in the product. */
+
+.plate {
+  background: var(--map-ground);
+  color: var(--night-text);
+  border-radius: var(--radius-m);
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.frame {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--night-text-muted);
+}
+
+.scale {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.scaleBar {
+  display: inline-block;
+  width: 36px;
+  height: 5px;
+  border: 1px solid var(--night-text-muted);
+  border-top: 0;
+}
+
+.canvas {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  width: 100%;
+  border: 1px solid var(--night-border);
+  overflow: hidden;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ground {
+  fill: var(--map-ground);
+}
+
+.gridLine {
+  stroke: var(--map-unsurveyed);
+  stroke-width: 1;
+  opacity: 0.35;
+  fill: none;
+}
+
+.riverBed {
+  fill: none;
+  stroke: var(--map-water);
+  stroke-width: 44;
+}
+
+.river {
+  fill: none;
+  stroke: var(--map-water-edge);
+  stroke-width: 1;
+  stroke-dasharray: 2 6;
+}
+
+.blocks rect {
+  fill: var(--map-block);
+  stroke: var(--map-block-edge);
+  stroke-width: 1;
+}
+
+.routeCasing {
+  fill: none;
+  stroke: var(--map-ground);
+  stroke-width: 9;
+  stroke-linejoin: round;
+}
+
+.route {
+  fill: none;
+  stroke: var(--hue, var(--map-route));
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: square;
+}
+
+/* New path opening: the route is drawn from the Crossroads outward. */
+.freshRoute path {
+  stroke-dasharray: 1;
+  animation: sq-draw var(--dur-world) var(--ease-draw) both;
+  animation-delay: 300ms;
+}
+
+.drawMask {
+  stroke-dasharray: 1;
+  animation: sq-draw var(--dur-world) var(--ease-draw) both;
+  animation-delay: 300ms;
+}
+
+.growIn {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sq-grow var(--dur-world) var(--ease-out) both;
+  animation-delay: 700ms;
+}
+
+.location {
+  fill: none;
+  stroke: var(--hue, var(--map-ink));
+  stroke-width: 1.75;
+  transition:
+    stroke var(--dur-standard) var(--ease-out),
+    opacity var(--dur-standard) var(--ease-out);
+}
+
+.location :global(.thin) {
+  stroke-width: 0.9;
+  opacity: 0.8;
+}
+
+.location :global(.fill) {
+  fill: currentColor;
+  stroke: none;
+  color: var(--hue, var(--map-ink));
+}
+
+/* A soft coloured pool of light around every surveyed place. */
+.glow {
+  fill: var(--hue);
+  stroke: none;
+  opacity: 0.16;
+  transition:
+    opacity var(--dur-standard) var(--ease-out),
+    r var(--dur-slow) var(--ease-out);
+}
+
+.location[data-state="hot"] .glow {
+  opacity: 0.32;
+}
+
+.location :global(.fill-soft) {
+  fill: var(--map-block-lit);
+}
+
+.location[data-state="hot"] {
+  stroke: var(--map-ink);
+}
+
+.location[data-state="hot"] :global(.fill) {
+  color: var(--map-ink);
+}
+
+.location[data-state="hidden"] {
+  stroke: var(--night-600);
+}
+
+.location[data-fresh] {
+  animation: sq-fade var(--dur-world) var(--ease-out) both;
+  animation-delay: 1100ms;
+}
+
+.unmapped circle {
+  stroke-dasharray: 3 5;
+}
+
+.activeFrame {
+  stroke: var(--map-route);
+  stroke-width: 1.5;
+  stroke-dasharray: 10 6;
+  fill: none;
+}
+
+.marks rect {
+  fill: var(--hue, var(--map-mark));
+  stroke: none;
+}
+
+/* ---- Accessible hotspots over the drawing ------------------------------ */
+
+.hotspots {
+  position: absolute;
+  inset: 0;
+}
+
+.hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.spot {
+  position: relative;
+  display: block;
+  width: clamp(44px, 10vw, 112px);
+  aspect-ratio: 1;
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-s);
+  color: var(--night-text);
+}
+
+.spot:focus-visible {
+  outline: 2px solid var(--map-route);
+  outline-offset: 2px;
+}
+
+.spotLabel {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 2px);
+  transform: translateX(-50%);
+  padding: 2px 6px;
+  background: var(--map-ground);
+  font-family: var(--font-mono);
+  font-size: clamp(0.5625rem, 0.45rem + 0.35vw, 0.75rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: color var(--dur-standard) var(--ease-out);
+}
+
+/* Unmapped places stay quiet: their label appears only on hover or focus. */
+.spot[data-revealed="false"] .spotLabel {
+  color: var(--night-400);
+  opacity: 0;
+  transition: opacity var(--dur-standard) var(--ease-out);
+}
+
+.spot[data-revealed="false"]:hover .spotLabel,
+.spot[data-revealed="false"]:focus-visible .spotLabel,
+.spot[data-revealed="false"][aria-pressed="true"] .spotLabel {
+  opacity: 1;
+}
+
+.spot[data-revealed="true"] .spotLabel {
+  color: var(--hue);
+  border-bottom: 2px solid var(--hue);
+}
+
+.spot:hover .spotLabel,
+.spot:focus-visible .spotLabel,
+.spot[aria-pressed="true"] .spotLabel {
+  color: var(--map-ground);
+  background: var(--hue);
+}
+
+.spotLabel[data-fresh] {
+  animation: sq-fade var(--dur-slow) var(--ease-out) both;
+  animation-delay: 1300ms;
+}
+
+@media (max-width: 40em) {
+  .plate {
+    padding: var(--space-2);
+    border-radius: 0;
+  }
+  .spotLabel {
+    font-size: 0.5625rem;
+    letter-spacing: 0.06em;
+    padding: 1px 3px;
+  }
+}
