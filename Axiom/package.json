@@ -1,0 +1,13 @@
+{
+  "name": "axiom",
+  "private": true,
+  "workspaces": ["apps/web", "packages/sdk-js"],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "npm --workspace @axiom/web run dev",
+    "dev:api": "python -m uvicorn axiom_api.main:app --app-dir apps/api --host 127.0.0.1 --port 8000 --reload",
+    "build": "npm --workspace @axiom/web run build",
+    "typecheck": "npm --workspace @axiom/web run typecheck",
+    "lint": "npm --workspace @axiom/web run lint"
+  }
+}

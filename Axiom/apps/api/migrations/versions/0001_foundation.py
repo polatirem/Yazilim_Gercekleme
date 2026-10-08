@@ -1,0 +1,27 @@
+"""Phase 1-3 foundation schema."""
+from alembic import op
+import sqlalchemy as sa
+
+revision = "0001"
+down_revision = None
+branch_labels = None
+depends_on = None
+
+def upgrade():
+    op.create_table("users", sa.Column("id", sa.String(36), primary_key=True), sa.Column("email", sa.String(320), nullable=False, unique=True), sa.Column("password_hash", sa.String(512), nullable=False), sa.Column("created_at", sa.DateTime(timezone=True), nullable=False))
+    op.create_table("organizations", sa.Column("id", sa.String(36), primary_key=True), sa.Column("name", sa.String(200), nullable=False), sa.Column("created_at", sa.DateTime(timezone=True), nullable=False))
+    op.create_table("organization_members", sa.Column("id", sa.String(36), primary_key=True), sa.Column("user_id", sa.String(36), sa.ForeignKey("users.id"), nullable=False), sa.Column("organization_id", sa.String(36), sa.ForeignKey("organizations.id"), nullable=False), sa.Column("role", sa.String(32), nullable=False), sa.UniqueConstraint("user_id", "organization_id"))
+    op.create_table("projects", sa.Column("id", sa.String(36), primary_key=True), sa.Column("organization_id", sa.String(36), sa.ForeignKey("organizations.id"), nullable=False, index=True), sa.Column("name", sa.String(200), nullable=False), sa.Column("created_at", sa.DateTime(timezone=True), nullable=False))
+    op.create_table("environments", sa.Column("id", sa.String(36), primary_key=True), sa.Column("project_id", sa.String(36), sa.ForeignKey("projects.id"), nullable=False, index=True), sa.Column("name", sa.String(80), nullable=False), sa.Column("created_at", sa.DateTime(timezone=True), nullable=False), sa.UniqueConstraint("project_id", "name"))
+    op.create_table("api_keys", sa.Column("id", sa.String(36), primary_key=True), sa.Column("environment_id", sa.String(36), sa.ForeignKey("environments.id"), nullable=False, index=True), sa.Column("name", sa.String(120), nullable=False), sa.Column("prefix", sa.String(20), nullable=False), sa.Column("secret_hash", sa.String(64), nullable=False, unique=True), sa.Column("last_used_at", sa.DateTime(timezone=True)), sa.Column("revoked_at", sa.DateTime(timezone=True)), sa.Column("created_at", sa.DateTime(timezone=True), nullable=False))
+    op.create_table("requests", sa.Column("id", sa.String(36), primary_key=True), sa.Column("organization_id", sa.String(36), sa.ForeignKey("organizations.id"), nullable=False, index=True), sa.Column("project_id", sa.String(36), sa.ForeignKey("projects.id"), nullable=False, index=True), sa.Column("environment_id", sa.String(36), sa.ForeignKey("environments.id"), nullable=False, index=True), sa.Column("idempotency_key", sa.String(200)), sa.Column("provider", sa.String(80), nullable=False), sa.Column("model", sa.String(120), nullable=False), sa.Column("prompt", sa.Text()), sa.Column("system_prompt", sa.Text()), sa.Column("response", sa.Text(), nullable=False), sa.Column("status", sa.String(40), nullable=False), sa.Column("latency_ms", sa.Integer()), sa.Column("input_tokens", sa.Integer()), sa.Column("output_tokens", sa.Integer()), sa.Column("metadata_json", sa.JSON(), nullable=False), sa.Column("created_at", sa.DateTime(timezone=True), nullable=False), sa.UniqueConstraint("environment_id", "idempotency_key", name="uq_request_idempotency"))
+    op.create_index("ix_requests_scope_created", "requests", ["organization_id", "project_id", "environment_id", "created_at"])
+    op.create_table("sources", sa.Column("id", sa.String(36), primary_key=True), sa.Column("request_id", sa.String(36), sa.ForeignKey("requests.id", ondelete="CASCADE"), nullable=False, index=True), sa.Column("external_id", sa.String(200), nullable=False), sa.Column("title", sa.String(300)), sa.Column("content", sa.Text(), nullable=False), sa.Column("metadata_json", sa.JSON(), nullable=False))
+    op.create_table("detector_results", sa.Column("id", sa.String(36), primary_key=True), sa.Column("request_id", sa.String(36), sa.ForeignKey("requests.id", ondelete="CASCADE"), nullable=False, index=True), sa.Column("detector", sa.String(80), nullable=False), sa.Column("version", sa.String(40), nullable=False), sa.Column("risk", sa.Float(), nullable=False), sa.Column("severity", sa.String(20), nullable=False), sa.Column("reason", sa.Text(), nullable=False), sa.Column("evidence_json", sa.JSON(), nullable=False), sa.Column("metadata_json", sa.JSON(), nullable=False), sa.Column("duration_ms", sa.Float(), nullable=False))
+    op.create_table("risk_spans", sa.Column("id", sa.String(36), primary_key=True), sa.Column("detector_result_id", sa.String(36), sa.ForeignKey("detector_results.id", ondelete="CASCADE"), nullable=False, index=True), sa.Column("start_offset", sa.Integer(), nullable=False), sa.Column("end_offset", sa.Integer(), nullable=False), sa.Column("severity", sa.String(20), nullable=False), sa.Column("reason", sa.Text(), nullable=False))
+    op.create_table("reliability_scores", sa.Column("id", sa.String(36), primary_key=True), sa.Column("request_id", sa.String(36), sa.ForeignKey("requests.id", ondelete="CASCADE"), nullable=False, unique=True), sa.Column("overall", sa.Integer(), nullable=False), sa.Column("status", sa.String(30), nullable=False), sa.Column("dimensions_json", sa.JSON(), nullable=False), sa.Column("created_at", sa.DateTime(timezone=True), nullable=False))
+
+def downgrade():
+    for table in ["reliability_scores", "risk_spans", "detector_results", "sources", "requests", "api_keys", "environments", "projects", "organization_members", "organizations", "users"]:
+        op.drop_table(table)
+
